@@ -1,0 +1,334 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #878378 0%, #9f825a 100%);
+}
+
+/* Header & Navigation */
+header {
+    height: 60px;
+    width: 100%;
+    background-color: rgb(41, 38, 38);
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    justify-content:space-between ;
+}
+
+.logo img {
+    max-width: 60px;
+    height: auto;
+    border-radius: 100px;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-list {
+    display: flex;
+}
+
+.nav-list li {
+    list-style: none;
+    margin: 0 15px;
+    font-weight: 550;
+    cursor: pointer;
+    transition: color 0.3s;
+    
+}
+.nav-list li a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.nav-list li:hover {
+    color: #ff9800;
+}
+
+/* Mobile Navigation */
+.menu-icon {
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+}
+
+/* Hero Section */
+.hero {
+    width: 100%;
+    height: 80vh;
+    background: url(images/tiffin.jpg) no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.hero h2, .hero p {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Search Box */
+.search-box {
+    max-width: 500px;
+    margin: 15px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-box input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ff9800;
+    border-radius: 5px 0 0 5px;
+    font-size: 1rem;
+}
+
+.search-box button {
+    padding: 10px 20px;
+    background: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-box button:hover {
+    background: #e68900;
+}
+
+/* Recipe Section */
+.recipes {
+    padding: 50px 0;
+    text-align: center;
+    background: #fff;
+}
+
+.recipes h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.recipe-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 90%;
+    margin: auto;
+}
+
+.recipe-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.recipe-card:hover {
+    transform: scale(1.05);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.recipe-card h2, .recipe-card p {
+    padding: 15px;
+}
+
+.recipe-card a {
+    display: block;
+    text-align: center;
+    background: #ff9800;
+    color: white;
+    padding: 15px 0;
+    text-decoration: none;
+    border-radius: 0 0 10px 10px;
+    transition: 0.3s;
+}
+
+.recipe-card a:hover {
+    background: #e68900;
+}
+
+/* Services Section */
+.services {
+    padding: 50px 0;
+    text-align: center;
+    background: #fff;
+}
+
+.service h1 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.service-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 90%;
+    margin: auto;
+}
+
+.service-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.service-card:hover {
+    transform: scale(1.05);
+}
+
+.service-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.service-card h2, .service-card p {
+    padding: 15px;
+}
+
+.service-card a {
+    display: block;
+    text-align: center;
+    background: #ff9800;
+    color: white;
+    padding: 15px 0;
+    text-decoration: none;
+    border-radius: 0 0 10px 10px;
+    transition: 0.3s;
+}
+
+.service-card a:hover {
+    background: #e68900;
+}
+
+/* Footer */
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+    }
+    
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background: #ff9800;
+        width: 200px;
+        border-radius: 5px;
+    }
+    
+    .nav-list li {
+        margin: 10px;
+        padding: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .nav-list li:last-child {
+        border-bottom: none;
+    }
+    
+    .menu-icon:hover + .nav-list,
+    .nav-list:hover {
+        display: flex;
+    }
+
+    .recipe-section, .service-section {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+/* Tiffin Rates Section */
+.tiffin-rates {
+    background: #f5f5f5;
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tiffin-container {
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.tiffin-container img {
+    width: 100%;
+    height:auto;
+    border-radius: 10px;
+}
+

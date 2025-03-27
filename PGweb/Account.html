@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PG Manager | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff3f6c;
+            --secondary: #ff527b;
+            --dark: #282c3f;
+            --light: #f5f5f6;
+            --white: #ffffff;
+            --success: #03a685;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Navigation */
+        .sidebar {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid #eaeaec;
+        }
+        
+        .sidebar-nav {
+            margin-top: 20px;
+        }
+        
+        .nav-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            
+        }
+        .nav-item a{
+            text-decoration: none;
+            color: black;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background-color: #f5f5f5;
+            border-left: 4px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .nav-item i {
+            margin-right: 12px;
+            font-size: 18px;
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            padding: 30px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        /* Tabs Navigation */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #eaeaec;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #94969f;
+            position: relative;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+        }
+        
+        .tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d4d5d9;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #f5f5f6;
+            color: var(--dark);
+            margin-right: 10px;
+        }
+        
+        /* Data Tables */
+        .data-table {
+            width: 100%;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eaeaec;
+        }
+        
+        .table-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .table-actions button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            text-align: left;
+            padding: 12px 20px;
+            background: #fafafa;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        td {
+            padding: 12px 20px;
+            border-bottom: 1px solid #eaeaec;
+        }
+        
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background: #e3fcef;
+            color: var(--success);
+        }
+        
+        .status-pending {
+            background: #fff8e6;
+            color: #ffb800;
+        }
+        
+        .status-inactive {
+            background: #ffebee;
+            color: #f44336;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            width: 500px;
+            max-width: 90%;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #94969f;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>PG Manager</h2>
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-item active" data-tab="users">
+                    <i class="fas fa-users"></i>
+                    <span>User Accounts</span>
+                </div>
+                <div class="nav-item" data-tab="payments">
+                    <i class="fas fa-rupee-sign"></i>
+                    <span>Payments</span>
+                </div>
+                <div class="nav-item" data-tab="mess">
+                    <i class="fas fa-utensils"></i>
+                    <a href="Mess/messavailability.html"><span>Tiffin Services</span></a>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Users Tab -->
+            <div class="tab-content active" id="users">
+                <div class="header">
+                    <h1 class="section-title">User Accounts Management</h1>
+                    <button class="btn btn-primary" id="addUserBtn">Add New User</button>
+                </div>
+                
+                <div class="tabs">
+                    <div class="tab active" data-user-type="all">All Users</div>
+                    <div class="tab" data-user-type="active">Active</div>
+                    <div class="tab" data-user-type="inactive">Inactive</div>
+                </div>
+                
+                <div class="data-table">
+                    <div class="table-header">
+                        <div class="table-title">Registered Users</div>
+                        <div class="table-actions">
+                            <input type="text" id="userSearch" placeholder="Search users...">
+                        </div>
+                    </div>
+                    <table id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>PG Location</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Users will be populated via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Payments Tab -->
+            <div class="tab-content" id="payments">
+                <div class="header">
+                    <h1 class="section-title">Payment Management</h1>
+                    <button class="btn btn-primary" id="recordPaymentBtn">Record Payment</button>
+                </div>
+                
+                <div class="tabs">
+                    <div class="tab active" data-payment-type="all">All Payments</div>
+                    <div class="tab" data-payment-type="completed">Completed</div>
+                    <div class="tab" data-payment-type="pending">Pending</div>
+                </div>
+                
+                <div class="data-table">
+                    <div class="table-header">
+                        <div class="table-title">Payment Records</div>
+                        <div class="table-actions">
+                            <input type="month" id="paymentMonthFilter">
+                        </div>
+                    </div>
+                    <table id="paymentsTable">
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="paymentsTableBody">
+                            <!-- Payments will be populated via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Mess Management Tab -->
+            <div class="tab-content" id="mess">
+                <div class="header">
+                    <a href=""><h1 class="section-title">Tiffin Services</h1>
+                    <button class="btn btn-primary" id="updateMenuBtn">Update Weekly Menu</button>
+                </div>
+                
+                <div class="tabs">
+                    <div class="tab active" data-mess-view="calendar">Calendar View</div>
+                    <div class="tab" data-mess-view="attendance">Attendance</div>
+                    <div class="tab" data-mess-view="preferences">Diet Preferences</div>
+                </div>
+                
+                <div class="data-table">
+                    <div class="table-header">
+                        <div class="table-title">This Week's Menu</div>
+                        <div class="table-actions">
+                            <input type="week" id="weekSelector">
+                        </div>
+                    </div>
+                    <table id="messMenuTable">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Breakfast</th>
+                                <th>Lunch</th>
+                                <th>Dinner</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="messMenuTableBody">
+                            <!-- Menu will be populated via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add/Edit User Modal -->
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="userModalTitle">Add New User</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="userForm">
+                <input type="hidden" id="userId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="pgLocation">PG Location</label>
+                    <select id="pgLocation" required>
+                        <option value="">Select PG Location</option>
+                        <option value="Koramangala PG">Koramangala PG</option>
+                        <option value="HSR Layout PG">HSR Layout PG</option>
+                        <option value="Bellandur PG">Bellandur PG</option>
+                        <option value="Indiranagar PG">Indiranagar PG</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="userStatus">Status</label>
+                    <select id="userStatus" required>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Record Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Record Payment</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="paymentUser">User</label>
+                    <select id="paymentUser" required>
+                        <option value="">Select User</option>
+                        <!-- Users will be populated via JavaScript -->
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="paymentAmount">Amount (₹)</label>
+                        <input type="number" id="paymentAmount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentDate">Payment Date</label>
+                        <input type="date" id="paymentDate" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="paymentMethod">Payment Method</label>
+                    <select id="paymentMethod" required>
+                        <option value="cash">Cash</option>
+                        <option value="online">Online Transfer</option>
+                        <option value="upi">UPI</option>
+                        <option value="card">Credit/Debit Card</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="paymentNotes">Notes</label>
+                    <input type="text" id="paymentNotes">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Record Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Update Menu Modal -->
+    <div class="modal" id="menuModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Update Daily Menu</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="menuForm">
+                <input type="hidden" id="menuDay">
+                <div class="form-group">
+                    <label for="breakfast">Breakfast</label>
+                    <input type="text" id="breakfast" required>
+                </div>
+                <div class="form-group">
+                    <label for="lunch">Lunch</label>
+                    <input type="text" id="lunch" required>
+                </div>
+                <div class="form-group">
+                    <label for="dinner">Dinner</label>
+                    <input type="text" id="dinner" required>
+                </div>
+                <div class="form-group">
+                    <label for="specialNotes">Special Notes</label>
+                    <input type="text" id="specialNotes">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Menu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample Data
+        let users = [
+            { id: 1, firstName: 'Rahul', lastName: 'Sharma', email: 'rahul@example.com', phone: '9876543210', pgLocation: 'Koramangala PG', status: 'active' },
+            { id: 2, firstName: 'Priya', lastName: 'Patel', email: 'priya@example.com', phone: '8765432109', pgLocation: 'HSR Layout PG', status: 'active' },
+            { id: 3, firstName: 'Amit', lastName: 'Singh', email: 'amit@example.com', phone: '7654321098', pgLocation: 'Bellandur PG', status: 'inactive' },
+            { id: 4, firstName: 'Neha', lastName: 'Gupta', email: 'neha@example.com', phone: '6543210987', pgLocation: 'Indiranagar PG', status: 'active' }
+        ];
+
+        let payments = [
+            { id: 1, userId: 1, userName: 'Rahul Sharma', amount: 8500, date: '2023-03-10', dueDate: '2023-03-05', method: 'online', status: 'completed', notes: 'March Rent' },
+            { id: 2, userId: 2, userName: 'Priya Patel', amount: 9000, date: '2023-03-08', dueDate: '2023-03-05', method: 'upi', status: 'completed', notes: 'March Rent' },
+            { id: 3, userId: 3, userName: 'Amit Singh', amount: 8500, date: '', dueDate: '2023-03-05', method: '', status: 'pending', notes: 'March Rent' },
+            { id: 4, userId: 4, userName: 'Neha Gupta', amount: 8000, date: '2023-03-12', dueDate: '2023-03-05', method: 'cash', status: 'completed', notes: 'March Rent' }
+        ];
+
+        let weeklyMenu = [
+            { day: 'Monday', breakfast: 'Poha, Tea', lunch: 'Roti, Dal, Rice, Sabzi, Salad', dinner: 'Roti, Paneer, Rice' },
+            { day: 'Tuesday', breakfast: 'Sandwich, Coffee', lunch:'Roti, Dal, Rice, Sabzi, Salad', dinner: 'Roti, Paneer, Rice' }];

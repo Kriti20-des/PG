@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutri-Meal Tiffin Service (Vegetarian)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1c1c1c;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #2b2b2b;
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4);
+            border-radius: 15px;
+            transition: transform 0.3s ease-in-out;
+            border: 2px solid gold;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: gold;
+            font-size: 32px;
+            text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.6);
+        }
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .meal {
+            background: linear-gradient(135deg, #3a3a3a, #222);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+            border: 1px solid gold;
+        }
+        .meal h2 {
+            margin: 0;
+            font-size: 24px;
+            color: gold;
+        }
+        .price {
+            font-weight: bold;
+            color: gold;
+        }
+        .monthly-price {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffcc00;
+        }
+        .total-price {
+            background: gold;
+            color: #1c1c1c;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 25px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🥗 Nutri-Meal Tiffin Service (Vegetarian) 🥗</h1>
+        <div class="menu">
+            <div class="meal">
+                <h2>☀️ Breakfast</h2>
+                <ul>
+                    <li>Monday - Poha & Sprouts - <span class="price">₹200</span></li>
+                    <li>Tuesday - Oats & Fruits - <span class="price">₹220</span></li>
+                    <li>Wednesday - Vegetable Upma - <span class="price">₹250</span></li>
+                    <li>Thursday - Paratha & Curd - <span class="price">₹230</span></li>
+                    <li>Friday - Idli & Sambar - <span class="price">₹240</span></li>
+                    <li>Saturday - Besan Chilla - <span class="price">₹260</span></li>
+                    <li>Sunday - Moong Dal Dosa - <span class="price">₹280</span></li>
+                </ul>
+                <div class="monthly-price">Monthly Breakfast Subscription: ₹5,500</div>
+            </div>
+            <div class="meal">
+                <h2>🌞 Lunch</h2>
+                <ul>
+                    <li>Monday - Paneer Bhurji & Roti - <span class="price">₹350</span></li>
+                    <li>Tuesday - Dal Makhani & Rice - <span class="price">₹370</span></li>
+                    <li>Wednesday - Vegetable Pulao & Raita - <span class="price">₹400</span></li>
+                    <li>Thursday - Chole & Bhature - <span class="price">₹380</span></li>
+                    <li>Friday - Soya Chunk Curry & Roti - <span class="price">₹350</span></li>
+                    <li>Saturday - Stuffed Paratha & Curd - <span class="price">₹320</span></li>
+                    <li>Sunday - Rajma & Rice - <span class="price">₹400</span></li>
+                </ul>
+                <div class="monthly-price">Monthly Lunch Subscription: ₹7,000</div>
+            </div>
+            <div class="meal">
+                <h2>🌙 Dinner</h2>
+                <ul>
+                    <li>Monday - Mixed Vegetable Curry & Roti - <span class="price">₹350</span></li>
+                    <li>Tuesday - Palak Paneer & Rice - <span class="price">₹400</span></li>
+                    <li>Wednesday - Khichdi & Curd - <span class="price">₹300</span></li>
+                    <li>Thursday - Baingan Bharta & Chapati - <span class="price">₹320</span></li>
+                    <li>Friday - Matar Paneer & Naan - <span class="price">₹420</span></li>
+                    <li>Saturday - Dal Tadka & Rice - <span class="price">₹330</span></li>
+                    <li>Sunday - Aloo Gobi & Roti - <span class="price">₹360</span></li>
+                </ul>
+                <div class="monthly-price">Monthly Dinner Subscription: ₹6,500</div>
+            </div>
+        </div>
+        <div class="total-price">Total Monthly Subscription (All Meals): ₹19,000</div>
+    </div>
+</body>
+</html>

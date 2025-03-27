@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizable Nutri-Meal Tiffin Service</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1c1c1c;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #2b2b2b;
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4);
+            border-radius: 15px;
+            transition: transform 0.3s ease-in-out;
+            border: 2px solid gold;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: gold;
+            font-size: 32px;
+            text-shadow: 2px 2px 8px rgba(255, 215, 0, 0.6);
+        }
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .meal {
+            background: linear-gradient(135deg, #3a3a3a, #222);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+            border: 1px solid gold;
+        }
+        .meal h2 {
+            margin: 0;
+            font-size: 24px;
+            color: gold;
+        }
+        .price {
+            font-weight: bold;
+            color: gold;
+        }
+        .monthly-price {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffcc00;
+        }
+        .total-price {
+            background: gold;
+            color: #1c1c1c;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 25px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        select, input {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid gold;
+            background: #3a3a3a;
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍽 Customizable Nutri-Meal Tiffin Service 🍽</h1>
+        <label for="date">Choose Date: </label>
+        <input type="date" id="date" name="date">
+        
+        <div class="menu">
+            <div class="meal">
+                <h2>☀️ Breakfast</h2>
+                <select>
+                    <option>Poha & Sprouts - ₹100</option>
+                    <option>Oats & Fruits - ₹120</option>
+                    <option>Vegetable Upma - ₹80</option>
+                    <option>Paratha & Curd - ₹40</option>
+                    <option>Idli & Sambar - ₹50</option>
+                </select>
+                <div class="monthly-price">Monthly Breakfast Subscription: ₹1,000</div>
+            </div>
+            <div class="meal">
+                <h2>🌞 Lunch</h2>
+                <select>
+                    <option>Paneer Bhurji & Roti - ₹150</option>
+                    <option>Dal Makhani & Rice - ₹230</option>
+                    <option>Vegetable Pulao & Raita - ₹200</option>
+                    <option>Chole & Bhature - ₹80</option>
+                    <option>Soya Chunk Curry & Roti - ₹100</option>
+                </select>
+                <div class="monthly-price">Monthly Lunch Subscription: ₹2,000</div>
+            </div>
+            <div class="meal">
+                <h2>🌙 Dinner</h2>
+                <select>
+                    <option>Mixed Vegetable, Curry & Roti - ₹300</option>
+                    <option>Palak Paneer & Rice - ₹250</option>
+                    <option>Khichdi & Curd - ₹150</option>
+                    <option>Baingan Bharta & Chapati - ₹120</option>
+                    <option>Matar Paneer & Naan - ₹180</option>
+                </select>
+                <div class="monthly-price">Monthly Dinner Subscription: ₹1,500</div>
+            </div>
+        </div>
+        <div class="total-price">Total Monthly Subscription (All Meals): ₹3,500</div>
+    </div>
+</body>
+</html>

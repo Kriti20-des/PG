@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My PG Wishlist</title>
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #6a11cb;
+            --accent-color: #ff6b6b;
+            --text-dark: #2c3e50;
+            --text-light: #f8f9fa;
+            --success-color: #28a745;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa;
+            color: var(--text-dark);
+        }
+        
+        .wishlist-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+        
+        .wishlist-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .wishlist-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .wishlist-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .pg-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .pg-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+        
+        .pg-image-container {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .pg-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .pg-card:hover .pg-image {
+            transform: scale(1.05);
+        }
+        
+        .pg-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .pg-details {
+            padding: 20px;
+        }
+        
+        .pg-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+        
+        .pg-location {
+            color: #6c757d;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .pg-location i {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+        
+        .pg-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .pg-feature {
+            background: #f1f3f5;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .pg-feature i {
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+        
+        .pg-price {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .pg-price span {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: normal;
+        }
+        
+        .pg-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #3a5bef;
+            box-shadow: 0 5px 15px rgba(74, 107, 255, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .remove-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            border: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 3;
+            transition: all 0.3s ease;
+        }
+        
+        .remove-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+        
+        .empty-wishlist {
+            text-align: center;
+            padding: 60px 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .empty-wishlist h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .empty-wishlist p {
+            color: #6c757d;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+        
+        .action-btns {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .wishlist-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .wishlist-header h1 {
+                font-size: 2rem;
+            }
+            
+            .action-btns {
+                justify-content: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="wishlist-container">
+        <div class="wishlist-header">
+            <h1><i class="fas fa-heart"></i> My Saved PGs</h1>
+        </div>
+        
+        <div class="wishlist-items" id="wishlistItems">
+            <!-- PG cards will be dynamically inserted here -->
+        </div>
+        
+        <div class="empty-wishlist" id="emptyWishlist">
+            <h3>Your PG wishlist is empty</h3>
+            <p>Start saving PGs you're interested in for easy access later</p>
+            <button class="btn btn-primary" onclick="window.location.href='search.html'">Browse PGs</button>
+        </div>
+        
+        <div class="action-btns">
+            <button class="btn btn-outline" onclick="shareWishlist()"><i class="fas fa-share-alt"></i> Share Wishlist</button>
+            <button class="btn btn-primary" onclick="window.location.href='search.html'"><i class="fas fa-search"></i> Find More PGs</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample PG data structure
+        const samplePGs = [
+            {
+                id: 'pg001',
+                title: 'Luxury PG for Girls',
+                location: 'Sector 15, Noida',
+                image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+                price: 12000,
+                period: 'month',
+                features: ['AC', 'WiFi', 'Food', 'Laundry'],
+                type: 'Girls',
+                contact: '+91 9876543210',
+                available: true
+            },
+            {
+                id: 'pg002',
+                title: 'Premium Boys PG',
+                location: 'Greater Kailash, Delhi',
+                image: 'https://images.unsplash.com/photo-1582719471386-3a0673b1f8af?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+                price: 9500,
+                period: 'month',
+                features: ['WiFi', 'Food', 'Gym', 'Parking'],
+                type: 'Boys',
+                contact: '+91 8765432109',
+                available: true
+            },
+            {
+                id: 'pg003',
+                title: 'Co-Living Space (Unisex)',
+                location: 'Hitech City, Hyderabad',
+                image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+                price: 15000,
+                period: 'month',
+                features: ['AC', 'WiFi', 'Food', 'Housekeeping', 'Gym'],
+                type: 'Unisex',
+                contact: '+91 7654321098',
+                available: false
+            }
+        ];
+
+        // Load wishlist from localStorage
+        let wishlist = JSON.parse(localStorage.getItem('pgWishlist')) || [];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayWishlist();
+        });
+
+        // Display wishlist items
+        function displayWishlist() {
+            const wishlistContainer = document.getElementById('wishlistItems');
+            const emptyWishlist = document.getElementById('emptyWishlist');
+            
+            wishlistContainer.innerHTML = '';
+            
+            if (wishlist.length === 0) {
+                emptyWishlist.style.display = 'block';
+                return;
+            } else {
+                emptyWishlist.style.display = 'none';
+            }
+            
+            wishlist.forEach(pg => {
+                const pgCard = document.createElement('div');
+                pgCard.className = 'pg-card';
+                pgCard.innerHTML = `
+                    <button class="remove-btn" onclick="removeFromWishlist('${pg.id}')">×</button>
+                    <div class="pg-image-container">
+                        <img src="${pg.image}" alt="${pg.title}" class="pg-image">
+                        <div class="pg-badge">${pg.type}</div>
+                    </div>
+                    <div class="pg-details">
+                        <div class="pg-title">${pg.title}</div>
+                        <div class="pg-location"><i class="fas fa-map-marker-alt"></i> ${pg.location}</div>
+                        <div class="pg-features">
+                            ${pg.features.map(feature => `
+                                <div class="pg-feature"><i class="fas fa-check-circle"></i> ${feature}</div>
+                            `).join('')}
+                        </div>
+                        <div class="pg-price">₹${pg.price.toLocaleString()}<span>/${pg.period}</span></div>
+                        <div class="pg-actions">
+                            <button class="btn btn-outline" onclick="contactPG('${pg.contact}')"><i class="fas fa-phone"></i> Contact</button>
+                            <button class="btn ${pg.available ? 'btn-primary' : 'btn-success'}" 
+                                onclick="${pg.available ? 'bookPG(\'' + pg.id + '\')' : 'notifyMe(\'' + pg.id + '\')'}">
+                                <i class="fas ${pg.available ? 'fa-calendar-check' : 'fa-bell'}"></i> 
+                                ${pg.available ? 'Book Now' : 'Notify Me'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                wishlistContainer.appendChild(pgCard);
+            });
+        }
+
+        // Add to wishlist function (to be called from PG listing pages)
+        function addToWishlist(pg) {
+            // Check if PG already exists in wishlist
+            const exists = wishlist.some(item => item.id === pg.id);
+            if (!exists) {
+                wishlist.push(pg);
+                localStorage.setItem('pgWishlist', JSON.stringify(wishlist));
+                displayWishlist();
+                
+                // Show success notification
+                alert(`${pg.title} has been added to your wishlist!`);
+            }
+        }
+
+        // Remove from wishlist
+        function removeFromWishlist(pgId) {
+            wishlist = wishlist.filter(pg => pg.id !== pgId);
+            localStorage.setItem('pgWishlist', JSON.stringify(wishlist));
+            displayWishlist();
+        }
+
+        // Contact PG owner
+        function contactPG(phoneNumber) {
+            if (confirm(`Call PG owner at ${phoneNumber}?`)) {
+                window.location.href = `tel:${phoneNumber}`;
+            }
+        }
+
+        // Book PG
+        function bookPG(pgId) {
+            const pg = wishlist.find(pg => pg.id === pgId);
+            if (pg) {
+                if (confirm(`Book ${pg.title} for ₹${pg.price.toLocaleString()}?`)) {
+                    // Here you would typically redirect to booking page
+                    alert(`Redirecting to booking page for ${pg.title}`);
+                }
+            }
+        }
+
+        // Notify when available
+        function notifyMe(pgId) {
+            const pg = wishlist.find(pg => pg.id === pgId);
+            if (pg) {
+                const email = prompt(`We'll notify you when ${pg.title} becomes available. Enter your email:`);
+                if (email) {
+                    alert(`We'll notify you at ${email} when this PG is available!`);
+                }
+            }
+        }
+
+        // Share wishlist
+        function shareWishlist() {
+            if (wishlist.length === 0) {
+                alert('Your wishlist is empty. Add some PGs to share!');
+                return;
+            }
+            
+            const pgList = wishlist.map(pg => `- ${pg.title} (${pg.location}) - ₹${pg.price}/${pg.period}`).join('\n');
+            const shareText = `Check out my PG wishlist:\n\n${pgList}\n\nShared via PG Finder`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My PG Wishlist',
+                    text: shareText,
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                    copyToClipboard(shareText);
+                });
+            } else {
+                copyToClipboard(shareText);
+            }
+        }
+
+        // Copy to clipboard as fallback
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Wishlist copied to clipboard!');
+        }
+    </script>
+</body>
+</html>

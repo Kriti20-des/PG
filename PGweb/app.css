@@ -1,0 +1,50 @@
+/* General Styling */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color:  #8b6f47;
+}
+
+/* Logo Container */
+.logo-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.logo {
+    max-width:auto;
+    border-radius :150px;
+    width: 250px;
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 18px;
+    margin-top: auto;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Contact Link Styling */
+.contact-link {
+    color: #f39c12;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
